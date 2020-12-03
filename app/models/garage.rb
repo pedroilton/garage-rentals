@@ -1,7 +1,7 @@
 class Garage < ApplicationRecord
   belongs_to :user
 
-  has_many :rentals
+  has_many :rentals, dependent: :destroy
   has_many :reviews, through: :rentals
 
   validates :user_id, presence: true
