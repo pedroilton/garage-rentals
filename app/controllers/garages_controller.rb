@@ -9,7 +9,7 @@ class GaragesController < ApplicationController
 
   def show
     @garage = Garage.find(params[:id])
-    @rating = @garage.rentals.review
+    @rentals = @garage.rentals
   end
 
   def new
