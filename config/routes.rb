@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     resources :reviews, only: %i[new create]
   end
 
-  get 'users/:id/garages', to: 'garages#list'
+  get '/user_garages', to: 'garages#list'
 end
