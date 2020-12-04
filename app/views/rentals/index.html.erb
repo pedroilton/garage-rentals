@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Rentals Index - alterar para exibir apenas as rentals do usuário corrente</h1>
+  <h1><%=  "Rentals of #{current_user.name}" %></h1> 
   <%= "Total Rentals = #{@rentals.count}" %>
   <% @rentals.each do |rental| %>
   <div class="row">
@@ -8,12 +8,12 @@
         <img src="../../assets/images/garagerentals.png" class="card-img-top my-5" alt="garage photo">
         <div class="card-body ">
           <h4 class="card-title">Rental <%= rental.id %></h4>
-          <p class="card-text"><strong><%= rental.garage.title %></strong></p>
-          <p class="card-text"><%= "user: #{rental.user.name}" %> </p>
+          <p class="card-text"><strong><%= "id: #{rental.garage.id} #{rental.garage.title}" %></strong></p>
           <p class="card-text"><%= "start_date:#{rental.start_date}" %> </p>
           <p class="card-text"><%= "end_date:#{rental.end_date}" %> </p>
           
-          <%= link_to 'Edit', edit_rental_path(rental), class:"btn btn-primary" %>
+          <%# <%= link_to 'Edit', edit_rental_path(rental), class:"btn btn-primary" %>
+          <%= link_to 'Add Rewiew', new_rental_review_path(rental), class:"btn btn-primary justify-items-center" %>
         </div>
       </div>
     </div>
