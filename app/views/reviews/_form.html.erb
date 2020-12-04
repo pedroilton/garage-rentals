@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Review and Avaliation</h1>
+
+  <%= simple_form_for [@rental, @review] do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="form-inputs">
+      <%= f.input :content %>
+      <%= f.input :rating, collection: 1..5 %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <br>
+  <%= link_to 'Back', rentals_path %>
+</div>
