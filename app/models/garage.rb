@@ -3,6 +3,7 @@ class Garage < ApplicationRecord
 
   has_many :rentals, dependent: :destroy
   has_many :reviews, through: :rentals
+  has_many_attached :photos
 
   validates :user_id, presence: true
   validates :title, presence: true
