@@ -2,7 +2,8 @@ class RentalsController < ApplicationController
   # rentals_path
   def index
     @user = current_user
-    @rentals = Rental.where(user: current_user)
+    # @rentals = Rental.where(user: current_user)
+    @rentals = Rental.all
   end
 
   # new_garage_rental_path

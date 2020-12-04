@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :rentals, dependent: :destroy
   has_many :garages, dependent: :destroy
+  # has_one_attached :photo
 
   validates :name, presence: true
 end
