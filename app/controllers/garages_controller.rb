@@ -1,5 +1,5 @@
 class GaragesController < ApplicationController
-  skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_garage, only: %i[show edit update destroy]
 
   def index
@@ -12,9 +12,9 @@ class GaragesController < ApplicationController
 
   def show
     if @garage.rentals.reject { |rental| rental.review.nil? }.any?
-      @garage_rating = Math.round(@garage.rentals.inject(0.0) do |sum, rental|
+      @garage_rating = (@garage.rentals.inject(0.0) do |sum, rental|
         sum + rental.review.rating unless rental.review.nil?
-      end / @garage.rentals.reject { |rental| rental.review.nil? }.count)
+      end / @garage.rentals.reject { |rental| rental.review.nil? }.count).round
     else
       @garage_rating = nil
     end
@@ -22,6 +22,7 @@ class GaragesController < ApplicationController
 
   def new
     @garage = Garage.new
+    # authorize @garage
   end
 
   def create
@@ -32,6 +33,7 @@ class GaragesController < ApplicationController
     else
       render :new
     end
+    # authorize @garage
   end
 
   def edit
@@ -61,6 +63,6 @@ class GaragesController < ApplicationController
   end
 
   def garage_params
-    params.require(:garage).permit(:title, :address, :price, :description)
+    params.require(:garage).permit(:title, :address, :price, :description, :photos)
   end
 end
