@@ -1,0 +1,10 @@
+<h1><%= @garage.title %></h1>
+<p><%= @garage.price %></p>
+<p><%= @garage.address %></p>
+<p><%= @garage.description %></p>
+<p><%= @garage.user.name %></p>
+<% if current_user %>
+  <%= link_to 'Book rental', new_garage_rental_path(@garage) %>
+<% else %>
+  <%= link_to 'Sign in to book', user_session_path %>
+<% end %>

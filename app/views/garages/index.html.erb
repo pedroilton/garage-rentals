@@ -1,7 +1,7 @@
 <h1>Garages</h1>
 
 <% @garages.each do |garage| %>
-  <h3><%= garage.title %></h3>
+  <h3><%= link_to garage.title, garage %></h3>
   <p><%= garage.price %></p>
   <p><%= garage.address %></p>
   <p><%= garage.description %></p>
