@@ -23,9 +23,7 @@ end
     address: new_address,
     price: rand(10.0..100.0),
     user_id: rand(1..30),
-    description: "Area: #{rand(8..30)}m² \b
-                  Height: #{rand(2..5)}m \b
-                  About: #{Faker::Lorem.sentences}"
+    description: "Area: #{rand(8..30)}m² / Height: #{rand(2..5)}m"
   )
   puts "<< GARAGE: #{new_garage.title} - created"
 end
@@ -43,7 +41,7 @@ i = Garage.first.id
   )
   new_review = Review.create(
     rating: rand(1..5),
-    content: Faker::Lorem.sentences,
+    content: Faker::Lorem.paragraph,
     rental_id: new_rental.id
   )
   i += 1
