@@ -8,3 +8,6 @@
 <% else %>
   <%= link_to 'Sign in to book', user_session_path %>
 <% end %>
+<% if policy(@garage).update? %>
+  <%= link_to "Edit Garage", edit_garage_path(@garage) %>
+<% end %>

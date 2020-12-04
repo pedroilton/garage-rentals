@@ -3,7 +3,7 @@ class GaragesController < ApplicationController
   before_action :set_garage, only: %i[show edit update destroy]
 
   def index
-    @garages = Garage.select do |garage|
+    @garages = policy_scope(Garage).select do |garage|
       garage.rentals.select do |rental|
         rental.start_date <= Date.today && (rental.end_date.nil? || rental.end_date >= Date.today)
       end.empty?
@@ -18,11 +18,12 @@ class GaragesController < ApplicationController
     else
       @garage_rating = nil
     end
+    authorize @garage
   end
 
   def new
     @garage = Garage.new
-    # authorize @garage
+    authorize @garage
   end
 
   def create
@@ -33,10 +34,11 @@ class GaragesController < ApplicationController
     else
       render :new
     end
-    # authorize @garage
+    authorize @garage
   end
 
   def edit
+    authorize @garage
   end
 
   def update
@@ -45,15 +47,18 @@ class GaragesController < ApplicationController
     else
       render :edit
     end
+    authorize @garage
   end
 
   def destroy
     @garage.destroy
     redirect_to user_garages_path, notice: 'Garage was successfully destroyed.'
+    authorize @garage
   end
 
   def list
     @garages = Garage.select { |garage| garage.user = current_user }
+    # authorize @garage
   end
 
   private
