@@ -1,0 +1,19 @@
+<div class="container">
+<h1>New Rental</h1>
+
+<%= simple_form_for [@garage, @rental] do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :start_date, as: :date, html5: true %>
+    <%= f.input :end_date, as: :date, html5: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Back', rentals_path %>
+</div>

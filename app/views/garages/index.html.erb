@@ -1,0 +1,10 @@
+<h1>Garages</h1>
+
+<% @garages.each do |garage| %>
+  <h3><%= garage.title %></h3>
+  <p><%= garage.price %></p>
+  <p><%= garage.address %></p>
+  <p><%= garage.description %></p>
+  <p><%= garage.user.name %></p>
+  <br>
+<% end %>
