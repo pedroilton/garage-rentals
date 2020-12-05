@@ -3,7 +3,23 @@
 <h1>Your garages</h1>
 
 <% if @garages.empty? %>
-  <h2>You have submitted no garage yet! =(</h2>
+  <h2>You have submitted no garages yet! =(</h2>
 <% else %>
-  <%= render "each", garages: @garages %>
+  <% @garages.each do |garage| %>
+    <% if garage.photos.attached? %>
+      <%= cl_image_tag garage.photos.first.key, height: 300, width: 400, crop: :fill %>
+    <% end %>
+    <h3><%= link_to garage.title, garage %></h3>
+    <% if garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
+      <p>Available</p>
+    <% else %>
+      <% rental = garage.rentals.select { |rental| rental.end_date.nil? }.first %>
+      <p>Rented since <%= rental.start_date.strftime("%d/%m/%Y") %> by <%= rental.user.name %></p>
+    <% end %>
+    <p>R$ <%= garage.price %></p>
+    <p><%= garage.address %></p>
+    <p><%= garage.description %></p>
+    <p><%= garage.user.name %></p>
+    <br>
+  <% end %>
 <% end %>

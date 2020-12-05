@@ -13,6 +13,12 @@
 <p><%= @garage.user.name %></p>
 
 <% if policy(@garage).update? %>
+  <% if @garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
+    <p>This garage is available.</p>
+  <% else %>
+    <% rental = @garage.rentals.select { |rental| rental.end_date.nil? }.first %>
+    <p>Rented since <%= rental.start_date.strftime("%d/%m/%Y") %> by <%= rental.user.name %>.</p>
+  <% end %>
   <%= link_to "Edit garage details", edit_garage_path(@garage) %>
   <%= link_to "Delete garage subscription", @garage, method: :delete %>
   <% else %>

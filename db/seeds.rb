@@ -60,7 +60,7 @@ end
 # 4o passo - criação das RENTALS
 i = Garage.first.id
 10.times do
-  new_date = Date.today + rand(-180..180)
+  new_date = Date.today - rand(30..180)
   new_rental = Rental.create(
     user_id: rand(User.first.id..User.last.id),
     garage_id: i,
@@ -81,7 +81,7 @@ end
 # 5o passo - criação das RENTALS com data final vazia
 
 5.times do
-  new_date = Date.today + rand(-180..180)
+  new_date = Date.today - rand(30..180)
   new_rental = Rental.create(
     user_id: rand(User.first.id..User.last.id),
     garage_id: i,

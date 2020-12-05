@@ -6,7 +6,7 @@ class GaragePolicy < ApplicationPolicy
   end
 
   def create?
-    return true
+    user
   end
 
   def update?

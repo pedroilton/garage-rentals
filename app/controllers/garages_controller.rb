@@ -4,11 +4,12 @@ class GaragesController < ApplicationController
   after_action :authorize_garage, except: %i[index list]
 
   def index
-    @garages = policy_scope(Garage).select do |garage|
-      garage.rentals.select do |rental|
-        rental.start_date <= Date.today && (rental.end_date.nil? || rental.end_date >= Date.today)
-      end.empty?
-    end
+    # @garages = policy_scope(Garage).select do |garage|
+    #   garage.rentals.select do |rental|
+    #     rental.start_date <= Date.today && (rental.end_date.nil? || rental.end_date >= Date.today)
+    #   end.empty?
+    # end
+    @garages = policy_scope(Garage).select { |garage| garage.rentals.select { |rental| rental.end_date.nil? }.empty? }
   end
 
   def show
