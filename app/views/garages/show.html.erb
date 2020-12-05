@@ -2,8 +2,8 @@
 <% if @garage.photos.attached? %>
     <%= cl_image_tag @garage.photos.first.key, height: 300, width: 400, crop: :fill %>
   <% end %>
-<% unless @garage_rating.nil? %>
-  <p><%= @garage_rating %> stars</p>
+<% unless @garage.rating.nil? %>
+  <h5><%= @garage.rating %> star<%= 's' if @garage.rating > 1 %></h5>
 <% end %>
 <p>R$ <%= @garage.price %></p>
 <p><%= @garage.address %></p>
@@ -19,4 +19,17 @@
     <% else %>
       <%= link_to 'Sign in to book rental', user_session_path %>
     <% end %>
+<% end %>
+
+<br>
+<h4>Reviews</h4>
+<% if @garage.reviews.empty? %>
+  <p>No reviews submitted yet. =(</p>
+<% else %>
+  <% @garage.reviews.each do |review| %>
+    <h5><%=review.rating %> star<%= 's' if review.rating > 1 %></h5>
+    <p><%= review.rental.user.name %></p>
+    <p><%= review.content %></p>
+    <br>
+  <% end %>
 <% end %>
