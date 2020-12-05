@@ -1,6 +1,8 @@
 <h1><%= @garage.title %></h1>
 <% if @garage.photos.attached? %>
-    <%= cl_image_tag @garage.photos.first.key, height: 300, width: 400, crop: :fill %>
+    <% @garage.photos.each do |photo| %>
+      <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
+    <% end %>
   <% end %>
 <% unless @garage.rating.nil? %>
   <h5><%= @garage.rating %> star<%= 's' if @garage.rating > 1 %></h5>
@@ -15,9 +17,9 @@
   <%= link_to "Delete garage subscription", @garage, method: :delete %>
   <% else %>
     <% if current_user %>
-      <%= link_to 'Book rental', new_garage_rental_path(@garage) %>
+      <%= link_to 'Rent this garage', new_garage_rental_path(@garage) %>
     <% else %>
-      <%= link_to 'Sign in to book rental', user_session_path %>
+      <%= link_to 'Sign in to rent', user_session_path %>
     <% end %>
 <% end %>
 
