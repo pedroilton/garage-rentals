@@ -1,16 +1,3 @@
 <h1>Garages</h1>
 
-<% @garages.each do |garage| %>
-  <% if garage.photos.attached? %>
-    <%= cl_image_tag garage.photos.first.key, height: 300, width: 400, crop: :fill %>
-  <% end %>
-  <h3><%= link_to garage.title, garage %></h3>
-  <% unless garage.rating.nil? %>
-    <h5><%= garage.rating %> star<%= 's' if garage.rating > 1 %></h5>
-  <% end %>
-  <p>R$ <%= garage.price %></p>
-  <p><%= garage.address %></p>
-  <p><%= garage.description %></p>
-  <p><%= garage.user.name %></p>
-  <br>
-<% end %>
+<%= render "each", garages: @garages %>
