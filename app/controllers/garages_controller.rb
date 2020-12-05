@@ -57,8 +57,7 @@ class GaragesController < ApplicationController
   end
 
   def list
-    @garages = Garage.select { |garage| garage.user = current_user }
-    # authorize @garage
+    @garages = policy_scope(Garage).where(user: current_user)
   end
 
   private

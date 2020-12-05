@@ -1,13 +1,22 @@
 <h1><%= @garage.title %></h1>
-<p><%= @garage.price %></p>
+<% if @garage.photos.attached? %>
+    <%= cl_image_tag @garage.photos.first.key, height: 300, width: 400, crop: :fill %>
+  <% end %>
+<% unless @garage_rating.nil? %>
+  <p><%= @garage_rating %> stars</p>
+<% end %>
+<p>R$ <%= @garage.price %></p>
 <p><%= @garage.address %></p>
 <p><%= @garage.description %></p>
 <p><%= @garage.user.name %></p>
-<% if current_user %>
-  <%= link_to 'Book rental', new_garage_rental_path(@garage) %>
-<% else %>
-  <%= link_to 'Sign in to book', user_session_path %>
-<% end %>
+
 <% if policy(@garage).update? %>
-  <%= link_to "Edit Garage", edit_garage_path(@garage) %>
+  <%= link_to "Edit garage details", edit_garage_path(@garage) %>
+  <%= link_to "Delete garage subscription", @garage, method: :delete %>
+  <% else %>
+    <% if current_user %>
+      <%= link_to 'Book rental', new_garage_rental_path(@garage) %>
+    <% else %>
+      <%= link_to 'Sign in to book rental', user_session_path %>
+    <% end %>
 <% end %>
