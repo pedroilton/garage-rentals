@@ -15,6 +15,35 @@ User.destroy_all
   puts "<< USER: #{new_user.name} - created"
 end
 
+# 2.1 - criação dos nossos users
+new_user = User.create(
+  email: 'demilson@email.com',
+  password: "123456",
+  name: 'Demilson Nascimento'
+)
+puts "<< USER: #{new_user.name} - created"
+
+new_user = User.create(
+  email: 'eduardo@email.com',
+  password: "123456",
+  name: 'Eduardo Ritter'
+)
+puts "<< USER: #{new_user.name} - created"
+
+new_user = User.create(
+  email: 'uellington@email.com',
+  password: "123456",
+  name: 'Uellington Cortes'
+)
+puts "<< USER: #{new_user.name} - created"
+
+new_user = User.create(
+  email: 'pedro@email.com',
+  password: "123456",
+  name: 'Pedro Ilton'
+)
+puts "<< USER: #{new_user.name} - created"
+
 # 3o passo - criação das GARAGES
 20.times do
   new_address = Faker::Address.street_name
@@ -31,7 +60,7 @@ end
 # 4o passo - criação das RENTALS
 i = Garage.first.id
 10.times do
-  new_date = Date.today + rand(-180..180)
+  new_date = Date.today - rand(30..180)
   new_rental = Rental.create(
     user_id: rand(User.first.id..User.last.id),
     garage_id: i,
@@ -52,7 +81,7 @@ end
 # 5o passo - criação das RENTALS com data final vazia
 
 5.times do
-  new_date = Date.today + rand(-180..180)
+  new_date = Date.today - rand(30..180)
   new_rental = Rental.create(
     user_id: rand(User.first.id..User.last.id),
     garage_id: i,

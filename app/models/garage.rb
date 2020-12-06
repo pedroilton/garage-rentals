@@ -9,4 +9,10 @@ class Garage < ApplicationRecord
   validates :title, presence: true
   validates :price, presence: true
   validates :address, presence: true
+
+  def rating
+    return nil if reviews.reject(&:nil?).empty?
+
+    (reviews.inject(0.0) { |sum, review| sum + review.rating unless review.nil? } / reviews.reject(&:nil?).count).round
+  end
 end

@@ -1,11 +1,11 @@
 <h1>Garages</h1>
 
 <% @garages.each do |garage| %>
-  <% if garage.photos.attached? %>%
+  <% if garage.photos.attached? %>
     <%= cl_image_tag garage.photos.first.key, height: 300, width: 400, crop: :fill %>
   <% end %>
   <h3><%= link_to garage.title, garage %></h3>
-  <p><%= garage.price %></p>
+  <p>R$ <%= garage.price %></p>
   <p><%= garage.address %></p>
   <p><%= garage.description %></p>
   <p><%= garage.user.name %></p>
