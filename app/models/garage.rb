@@ -15,4 +15,8 @@ class Garage < ApplicationRecord
 
     (reviews.inject(0.0) { |sum, review| sum + review.rating unless review.nil? } / reviews.reject(&:nil?).count).round
   end
+
+  # inclusao das definicoes do GEOcoding
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
 end
