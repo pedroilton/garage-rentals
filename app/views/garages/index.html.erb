@@ -1,7 +1,10 @@
-<div class="container">
-  <h1>CHOOSE THE PERFECT GARAGE FOR YOU</h1>
-  <div class="row">
+<h1>CHOOSE THE PERFECT GARAGE FOR YOU</h1>
 
+<div class="d-flex">
+
+<%# box da esquerda - listagem das garagens %>
+<div class="container">
+  <div class="row">
     <% @garages.each do |garage| %>
       <div class="col-sm-12 col-md-6 col-lg-4 my-2">
         <div class="card">
@@ -20,7 +23,19 @@
             <%# <p><%= garage.user.name %></p> 
           </div>
         </div>
-      </div>  
+      </div>
     <% end %>
   </div>
-</div>    
+</div>
+
+<%# box da direita - mapa %>
+<div id="map"
+     style="width: 100%; 
+            height: 100vh; 
+            position: sticky;
+            top: 0;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+</div>
+
+</div>
