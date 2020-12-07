@@ -10,6 +10,14 @@ class GaragesController < ApplicationController
     #   end.empty?
     # end
     @garages = policy_scope(Garage).select { |garage| garage.rentals.select { |rental| rental.end_date.nil? }.empty? }
+    # Configuracao do MAPA:
+    @markers = @garages.reject { |garage| garage.geocode.nil? }
+                       .map do |garage|
+      {
+        lat: garage.geocode[0],
+        lng: garage.geocode[1]
+      }
+    end
   end
 
   def show

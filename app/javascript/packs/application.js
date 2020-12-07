@@ -27,10 +27,11 @@ import "bootstrap";
 
 // Internal imports, e.g:
 import { initAlgolia } from '../plugins/initAlgolia';
-// import { initSelect2 } from '../components/init_select2';
+import { initMapbox } from '../plugins/initMapbox';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
   initAlgolia();
+  initMapbox();
 });
