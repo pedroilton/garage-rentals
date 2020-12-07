@@ -1,10 +1,12 @@
 class ReviewsController < ApplicationController
-  before_action :set_rental #, only: %i[new create]
+  before_action :set_rental
+  after_action :authorize_review
 
   def new
     @review = Review.new
+    @review.rental = @rental
   end
-  
+
   def create
     @review = Review.new(review_params)
     @review.rental = @rental
@@ -24,5 +26,9 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:content, :rating)
+  end
+
+  def authorize_review
+    authorize @review
   end
 end

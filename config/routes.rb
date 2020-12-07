@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :rentals, only: %i[index edit update] do
-    resources :reviews, only: %i[new create]
+    resources :reviews, only: %i[new create show]
   end
 
   get '/user_garages', to: 'garages#list'

@@ -11,7 +11,8 @@
 <p><%= @garage.address %></p>
 <p><%= @garage.description %></p>
 <p><%= @garage.user.name %></p>
-
+<br>
+<%# Se for o dono da garagem%>
 <% if policy(@garage).update? %>
   <% if @garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
     <p>This garage is available.</p>
@@ -21,12 +22,41 @@
   <% end %>
   <%= link_to "Edit garage details", edit_garage_path(@garage) %>
   <%= link_to "Delete garage subscription", @garage, method: :delete %>
+<%# Se nao for o dono da garagem %>
+<% else %>
+  <% if @garage.rentals.select { |rental| rental.end_date.nil? }.any? %>
+    <% if current_user == @rental.user %>
+      <p>Rented since <%= @rental.start_date.strftime("%d/%m/%Y") %>.</p>
+      <%= simple_form_for @rental do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <div class="form-inputs">
+          <%= f.input :end_date, as: :date, min: Date.today, html5: true %>
+        </div>
+        <div class="form-actions">
+          <%= f.button :submit, value: 'End rental' %>
+        </div>
+      <% end %>
+      <%= link_to "End rental", edit_garage_path(@garage) %>
+    <% else %>
+      <p>Sorry, this garage is unavailable. =(</p>
+    <% end %>
   <% else %>
     <% if current_user %>
-      <%= link_to 'Rent this garage', new_garage_rental_path(@garage) %>
+      <%= simple_form_for [@garage, @rental] do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <div class="form-inputs">
+          <%= f.input :start_date, as: :date, min: Date.today, html5: true %>
+        </div>
+        <div class="form-actions">
+          <%= f.button :submit, value: 'Rent this garage' %>
+        </div>
+      <% end %>
     <% else %>
       <%= link_to 'Sign in to rent', user_session_path %>
     <% end %>
+  <% end %>
 <% end %>
 
 <br>

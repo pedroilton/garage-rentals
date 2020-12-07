@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><%=  "Rentals of #{current_user.name}" %></h1> 
+  <h1><%=  "#{current_user.name}'s rentals'" %></h1> 
   <%= "Total Rentals = #{@rentals.count}" %>
   <% @rentals.each do |rental| %>
   <div class="row">
@@ -9,13 +9,21 @@
           <%= cl_image_tag rental.garage.photos.first.key, height: 300, width: 300, crop: :fill %>
         <% end %>
           <div class="card-body ">
-            <h4 class="card-title">Rental <%= rental.id %></h4>
-            <p class="card-text"><strong><%= "id: #{rental.garage.id} #{rental.garage.title}" %></strong></p>
-            <p class="card-text"><%= "start_date:#{rental.start_date}" %> </p>
-            <p class="card-text"><%= "end_date:#{rental.end_date}" %> </p>
+            <h4 class="card-text"><strong><%= link_to rental.garage.title, rental.garage %></strong></h4>
+            <p class="card-text"><%= "Start date: #{rental.start_date.strftime("%d/%m/%Y")}" %></p>
+            <% if rental.end_date.nil? %>
+              <p class="card-text">Ongoing rental</p>
+              
+            <% else %>
+              <p class="card-text"><%= "End date: #{rental.end_date.strftime("%d/%m/%Y")}" %></p>
+              <% if rental.review.nil? %>
+                <%= link_to 'Add Rewiew', new_rental_review_path(rental), class:"btn btn-primary justify-items-center" %>
+              <% else %>
+                <p>Your rating: <%=rental.review.rating %> star<%= 's' if rental.review.rating > 1 %></p>
+              <% end %>
+            <% end %>
             
             <%# <%= link_to 'Edit', edit_rental_path(rental), class:"btn btn-primary" %>
-            <%= link_to 'Add Rewiew', new_rental_review_path(rental), class:"btn btn-primary justify-items-center" %>
           </div>
       </div>
     </div>
