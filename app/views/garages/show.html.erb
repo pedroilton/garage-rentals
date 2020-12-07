@@ -31,7 +31,7 @@
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
         <div class="form-inputs">
-          <%= f.input :end_date, as: :date, min: Date.today, html5: true %>
+          <%= f.date_field :end_date, as: :date, min: [@rental.start_date, Date.today].max, html5: true %>
         </div>
         <div class="form-actions">
           <%= f.button :submit, value: 'End rental' %>
@@ -47,7 +47,7 @@
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
         <div class="form-inputs">
-          <%= f.input :start_date, as: :date, min: Date.today, html5: true %>
+          <%= f.date_field :start_date, as: :date, min: Date.today, html5: true %>
         </div>
         <div class="form-actions">
           <%= f.button :submit, value: 'Rent this garage' %>
