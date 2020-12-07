@@ -1,0 +1,23 @@
+.page-footer {
+  display: flex;
+  justify-content: space-around;
+  // background-color: lightgray;
+  background-color: $special_orange;
+  color: white;
+  p {
+    font-weight: bold;
+    align-items: left;
+  }
+}
+
+.social  a {
+  text-decoration: none;
+  color: white;
+  position: relative
+  left 30px;
+  &:hover {
+    // text-decoration: none;
+  color: $special_black;
+
+  }
+}

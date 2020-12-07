@@ -1,6 +1,30 @@
+#nav-logo {
+  margin: 0px;
+  z-index: 10;
+  object-fit: fit;
+  position: relative;
+  top: 20px;
+  left: 30px;
+  width: 100px;
+}
+
 .navbar-lewagon {
   justify-content: space-between;
+  color: black;
   background: white;
+  // background: black;
+  // background:$special_silver;
+  // background:$special_yellow;
+
+  height: 40px;
+}
+
+.nav-link a {
+  text-decoration: none; 
+  color: white;
+  & :hover {
+  color: $special_silver;
+  }
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -9,4 +33,10 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+h1 {
+  font-family: $h1-font;
+  font-size: 24px;
+  // color: white
 }

@@ -1,13 +1,26 @@
-<h1>Garages</h1>
+<div class="container">
+  <h1>CHOOSE THE PERFECT GARAGE FOR YOU</h1>
+  <div class="row">
 
-<% @garages.each do |garage| %>
-  <% if garage.photos.attached? %>
-    <%= cl_image_tag garage.photos.first.key, height: 300, width: 400, crop: :fill %>
-  <% end %>
-  <h3><%= link_to garage.title, garage %></h3>
-  <p>R$ <%= garage.price %></p>
-  <p><%= garage.address %></p>
-  <p><%= garage.description %></p>
-  <p><%= garage.user.name %></p>
-  <br>
-<% end %>
+    <% @garages.each do |garage| %>
+      <div class="col-sm-12 col-md-6 col-lg-4 my-2">
+        <div class="card">
+          <div class="card-img">
+            <% if garage.photos.attached? %>
+              <%= cl_image_tag garage.photos.first.key, height: 300, width: 348, crop: :fill %>
+            <% else %>
+              <%= cl_image_tag '/assets/garage1', height: 300, width: 348, crop: :cover %>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title title"><%= link_to garage.title, garage %></h3>
+            <%# <p>R$ <%= garage.price %></p> 
+            <%# <p><%= garage.address %></p> 
+            <%# <p><%= garage.description %></p>
+            <%# <p><%= garage.user.name %></p> 
+          </div>
+        </div>
+      </div>  
+    <% end %>
+  </div>
+</div>    
