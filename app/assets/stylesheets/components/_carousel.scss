@@ -1,0 +1,25 @@
+.img-banner {
+  /* any dimensions are fine, it can be responsive with max-width */
+  object-fit: cover;
+  // width: 1280px;
+  width: 100%;
+  height: 340px;
+}
+
+// .carousel-inner {
+//   /* make sure your .items will get correct height */
+//   height: 400px;
+//   // height: 100%;
+// }
+
+// .carousel-item {
+//   background-size: scale;
+//   // background-position: 50% 50%;
+//   width: 100vw;
+//   // height: 100%;
+//   height: 350px;
+// }
+
+// .carousel-item img {
+//   visibility: hidden;
+// }
