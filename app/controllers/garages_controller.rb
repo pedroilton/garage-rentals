@@ -21,6 +21,11 @@ class GaragesController < ApplicationController
   end
 
   def show
+    if @garage.rentals.select { |rental| rental.end_date.nil? }.any?
+      @rental = @garage.rentals.select { |rental| rental.end_date.nil? }.first
+    else
+      @rental = Rental.new
+    end
   end
 
   def new

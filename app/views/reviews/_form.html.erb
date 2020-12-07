@@ -1,13 +1,15 @@
 <div class="container">
-  <h1>Review and Avaliation</h1>
+  <h1><%= @rental.garage.title %></h1>
+  <br>
+  <h2>Review and Avaliation</h2>
 
   <%= simple_form_for [@rental, @review] do |f| %>
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
     <div class="form-inputs">
-      <%= f.input :content %>
       <%= f.input :rating, collection: 1..5 %>
+      <%= f.input :content %>
     </div>
 
     <div class="form-actions">

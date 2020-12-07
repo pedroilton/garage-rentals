@@ -14,7 +14,7 @@ class GaragePolicy < ApplicationPolicy
   end
 
   def show?
-    return true
+    true
   end
 
   def destroy?
