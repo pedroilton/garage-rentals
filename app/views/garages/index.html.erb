@@ -12,10 +12,14 @@
       <% end %>
       <div class="card-product-infos">
         <h2><%= link_to garage.title, garage %></h2> 
-        <p><%= "#{garage.rating} stars" %></p>
+        <% if  garage.rating.nil? %>
+          <p>Not rated yet</p>
+        <% else %>
+          <p><%= garage.rating %> star<%= 's' if garage.rating > 1 %></p>
+        <% end %>
         <p><%= garage.address %></p>
         <div>
-        <p id="price">R$ <%= sprintf('%.2f', garage.price).gsub('.', ',') %></p>
+        <p id="price">R$ <%= sprintf('%.2f', garage.price).gsub('.', ',') %>/day</p>
         </div>
       </div><!-- Fim do Card-Product-infos-->
     </div><!-- Fim do Card-Product-->
