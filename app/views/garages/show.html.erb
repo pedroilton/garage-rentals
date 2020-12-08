@@ -7,7 +7,7 @@
 <% unless @garage.rating.nil? %>
   <h5><%= @garage.rating %> star<%= 's' if @garage.rating > 1 %></h5>
 <% end %>
-<p>R$ <%= @garage.price %></p>
+<p>R$ <%= sprintf('%.2f', @garage.price).gsub('.', ',') %></p>
 <p><%= @garage.address %></p>
 <p><%= @garage.description %></p>
 <p><%= @garage.user.name %></p>
