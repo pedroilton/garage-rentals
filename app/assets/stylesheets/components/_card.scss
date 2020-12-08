@@ -53,3 +53,31 @@
   font-weight: bold;
   color: $special_orange;
 }
+
+// view list
+.list-card {
+  height: 300px;
+  font-size: 24px;
+  align-items: flex-start;
+  img {
+    height: 100%;
+    width: 300px;
+    object-fit: cover;
+  }
+  a {
+    font-size: 24px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+.garage-status {
+  font-weight: bold;
+  .available {
+    font-color: $blue;
+  }
+  .unavailable {
+    font-color: $gray;
+  }
+}

@@ -12,7 +12,7 @@
   }
 }
 
-.social  a {
+.footer-links a {
   text-decoration: none;
   color: white;
   position: relative
@@ -20,6 +20,9 @@
   &:hover {
     // text-decoration: none;
   color: $special_black;
-
   }
+}
+
+.social {
+  font-size: 32px;
 }
