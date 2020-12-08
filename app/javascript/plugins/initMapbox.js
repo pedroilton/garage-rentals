@@ -12,19 +12,66 @@ const initMapbox = () => {
 
   if (mapElement) { // only build a map if there's a div#map to inject into
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10'
-    });
-    // Adicionar marcadores:
-    const markers = JSON.parse(mapElement.dataset.markers);
-    markers.forEach((marker) => {
-      new mapboxgl.Marker()
-        .setLngLat([ marker.lng, marker.lat ])
-        .addTo(map);
-    });
-    // Chama o fitMapToMarkers:
-    fitMapToMarkers(map, markers);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((coord) => {
+        const map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          zoom: 11,
+          center: [coord.coords.longitude, coord.coords.latitude]
+        });
+        // Adicionar marcadores:
+        const markers = JSON.parse(mapElement.dataset.markers);
+        markers.forEach((marker) => {
+          // Adiciona infoWindow
+          const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
+          // Altera o estilo do marker
+          const element = document.createElement('div');
+          element.className = 'marker';
+          element.style.backgroundColor = '#ffc304';
+          element.textContent = marker.content
+          element.style.fontWeight = 'bold'
+          element.style.borderRadius = '5px'
+          element.style.borderWidth = '1px'
+          element.style.borderColor = 'black'
+          element.style.borderStyle = 'solid'
+          element.style.padding = '1px 4px'
+          new mapboxgl.Marker(element)
+            .setLngLat([ marker.lng, marker.lat ])
+            .setPopup(popup)
+            .addTo(map);
+        });
+      });
+    }
+    else {
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11'
+      });
+      // Adicionar marcadores:
+      const markers = JSON.parse(mapElement.dataset.markers);
+      markers.forEach((marker) => {
+        // Adiciona infoWindow
+        const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
+        // Altera o estilo do marker
+        const element = document.createElement('div');
+        element.className = 'marker';
+        element.style.backgroundColor = '#ffc304';
+        element.textContent = marker.content
+        element.style.fontWeight = 'bold'
+        element.style.borderRadius = '5px'
+        element.style.borderWidth = '1px'
+        element.style.borderColor = 'black'
+        element.style.borderStyle = 'solid'
+        element.style.padding = '1px 4px'
+        new mapboxgl.Marker(element)
+          .setLngLat([ marker.lng, marker.lat ])
+          .setPopup(popup)
+          .addTo(map);
+      });
+      // Chama o fitMapToMarkers:
+      fitMapToMarkers(map, markers);
+    }
   }
 };
 
