@@ -26,12 +26,14 @@ require("channels")
 import "bootstrap";
 
 // Internal imports, e.g:
+import { loadDynamicBannerText } from '../plugins/initTyped';
 import { initAlgolia } from '../plugins/initAlgolia';
 import { initMapbox } from '../plugins/initMapbox';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  loadDynamicBannerText();
   initAlgolia();
   initMapbox();
 });
