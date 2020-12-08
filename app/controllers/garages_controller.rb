@@ -15,7 +15,9 @@ class GaragesController < ApplicationController
                        .map do |garage|
       {
         lat: garage.geocode[0],
-        lng: garage.geocode[1]
+        lng: garage.geocode[1],
+        infoWindow: render_to_string(partial: "garage_details", locals: { garage: garage }),
+        content: "R$#{garage.price.to_i}"
       }
     end
   end
