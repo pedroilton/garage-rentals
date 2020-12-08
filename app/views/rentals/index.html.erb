@@ -1,6 +1,6 @@
 <div class="container">
-  <h1><%=  "#{current_user.name}'s rentals'" %></h1> 
-  <%= "Total Rentals = #{@rentals.count}" %>
+  <br>
+  <h4 class="text-center"><%=  "#{current_user.name}'s rentals" %></h4> 
   <% @rentals.each do |rental| %>
   <div class="row">
     <div class="col-sm-6 col-md-4 col-lg-3">
@@ -9,7 +9,7 @@
           <%= cl_image_tag rental.garage.photos.first.key, height: 300, width: 300, crop: :fill %>
         <% end %>
           <div class="card-body ">
-            <h4 class="card-text"><strong><%= link_to rental.garage.title, rental.garage %></strong></h4>
+            <h5 class="card-text"><strong><%= link_to rental.garage.title, rental.garage %></strong></h5>
             <p class="card-text"><%= "Start date: #{rental.start_date.strftime("%d/%m/%Y")}" %></p>
             <% if rental.end_date.nil? %>
               <p class="card-text">Ongoing rental</p>
