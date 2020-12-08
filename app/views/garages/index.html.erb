@@ -15,7 +15,7 @@
         <p><%= "#{garage.rating} stars" %></p>
         <p><%= garage.address %></p>
         <div>
-        <p id="price"><%= "R$ #{garage.price}" %></p>
+        <p id="price">R$ <%= sprintf('%.2f', garage.price).gsub('.', ',') %></p>
         </div>
       </div><!-- Fim do Card-Product-infos-->
     </div><!-- Fim do Card-Product-->
