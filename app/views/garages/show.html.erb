@@ -1,73 +1,88 @@
-<h1><%= @garage.title %></h1>
-<% if @garage.photos.attached? %>
-    <% @garage.photos.each do |photo| %>
-      <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
-    <% end %>
-  <% end %>
-<% unless @garage.rating.nil? %>
-  <h5><%= @garage.rating %> star<%= 's' if @garage.rating > 1 %></h5>
-<% end %>
-<p>R$ <%= sprintf('%.2f', @garage.price).gsub('.', ',') %>/day</p>
-<p><%= @garage.address %></p>
-<p><%= @garage.description %></p>
-<p><%= @garage.user.name %></p>
-<br>
-<%# Se for o dono da garagem%>
-<% if policy(@garage).update? %>
-  <% if @garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
-    <p>This garage is available.</p>
-  <% else %>
-    <% rental = @garage.rentals.select { |rental| rental.end_date.nil? }.first %>
-    <p>Rented since <%= rental.start_date.strftime("%d/%m/%Y") %> by <%= rental.user.name %>.</p>
-  <% end %>
-  <%= link_to "Edit garage details", edit_garage_path(@garage) %>
-  <%= link_to "Delete garage subscription", @garage, method: :delete %>
-<%# Se nao for o dono da garagem %>
-<% else %>
-  <% if @garage.rentals.select { |rental| rental.end_date.nil? }.any? %>
-    <% if current_user == @rental.user %>
-      <p>Rented since <%= @rental.start_date.strftime("%d/%m/%Y") %>.</p>
-      <%= simple_form_for @rental do |f| %>
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <div class="form-inputs">
-          <%= f.date_field :end_date, as: :date, min: [@rental.start_date, Date.today].max, html5: true %>
-        </div>
-        <div class="form-actions">
-          <%= f.button :submit, value: 'End rental' %>
-        </div>
-      <% end %>
-      <%= link_to "End rental", edit_garage_path(@garage) %>
-    <% else %>
-      <p>Sorry, this garage is unavailable. =(</p>
-    <% end %>
-  <% else %>
-    <% if current_user %>
-      <%= simple_form_for [@garage, @rental] do |f| %>
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <div class="form-inputs">
-          <%= f.date_field :start_date, as: :date, min: Date.today, html5: true %>
-        </div>
-        <div class="form-actions">
-          <%= f.button :submit, value: 'Rent this garage' %>
-        </div>
-      <% end %>
-    <% else %>
-      <%= link_to 'Sign in to rent', user_session_path %>
-    <% end %>
-  <% end %>
-<% end %>
+<div class="container m-3">
 
-<br>
-<h4>Reviews</h4>
-<% if @garage.reviews.empty? %>
-  <p>No reviews submitted yet. =(</p>
-<% else %>
-  <% @garage.reviews.each do |review| %>
-    <h5><%=review.rating %> star<%= 's' if review.rating > 1 %></h5>
-    <p><%= review.rental.user.name %></p>
-    <p><%= review.content %></p>
-    <br>
+  <h2 class="text-center"> Garage details:</h2>
+  <hr>
+  <br>
+  <h3><strong><%= @garage.title %></strong></h3>
+  <% if @garage.photos.attached? %>
+      <% @garage.photos.each do |photo| %>
+        <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
+      <% end %>
+    <% end %>
+  <% unless @garage.rating.nil? %>
+    <h5><%= @garage.rating %> star<%= 's' if @garage.rating > 1 %></h5>
   <% end %>
-<% end %>
+  <br>
+  <br>
+  <p><span style="color: gray">Price:</span> R$ <%= sprintf('%.2f', @garage.price).gsub('.', ',') %>/day</p>
+  <p><span style="color: gray">Address:</span> <%= @garage.address %></p>
+  <p><span style="color: gray">Description:</span> <%= @garage.description %></p>
+  <small><span style="color: gray">Owner:</span> <%= @garage.user.name %></small>
+  <br>
+  <br>
+  <%# Se for o dono da garagem%>
+  <% if policy(@garage).update? %>
+    <% if @garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
+      <em><p style="color: green">This garage is available.</p></em>
+    <% else %>
+      <% rental = @garage.rentals.select { |rental| rental.end_date.nil? }.first %>
+      <p>Rented since <%= rental.start_date.strftime("%d/%m/%Y") %> by <%= rental.user.name %>.</p>
+    <% end %>
+    
+    <a class="btn-rent" href="<%= edit_garage_path(@garage) %>">Edit garage details</a>
+    <br>
+    <br>
+    <a class="btn-rent" rel="nofollow" data-method="delete" href="<%=@garage%>">Delete garage subscription</a>
+    <br>
+    <%# <br> %>
+  <%# Se nao for o dono da garagem %>
+  <% else %>
+    <% if @garage.rentals.select { |rental| rental.end_date.nil? }.any? %>
+      <% if current_user == @rental.user %>
+        <p>Rented since <%= @rental.start_date.strftime("%d/%m/%Y") %>.</p>
+        <%= simple_form_for @rental do |f| %>
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+          <div class="form-inputs">
+            <%= f.date_field :end_date, as: :date, min: [@rental.start_date, Date.today].max, html5: true %>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, value: 'End rental' %>
+          </div>
+        <% end %>
+        <%= link_to "End rental", edit_garage_path(@garage) %>
+      <% else %>
+        <p>Sorry, this garage is unavailable. =(</p>
+      <% end %>
+    <% else %>
+      <% if current_user %>
+        <%= simple_form_for [@garage, @rental] do |f| %>
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+          <div class="form-inputs">
+            <%= f.date_field :start_date, as: :date, min: Date.today, html5: true %>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, value: 'Rent this garage' %>
+          </div>
+        <% end %>
+      <% else %>
+        <%= link_to 'Sign in to rent', user_session_path %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <br>
+  <h5>Reviews</h5>
+  <% if @garage.reviews.empty? %>
+    <p>No reviews submitted yet. =(</p>
+  <% else %>
+    <% @garage.reviews.each do |review| %>
+      <h5><%=review.rating %> star<%= 's' if review.rating > 1 %></h5>
+      <p><%= review.rental.user.name %></p>
+      <p><%= review.content %></p>
+      <br>
+    <% end %>
+  <% end %>
+
+</div>

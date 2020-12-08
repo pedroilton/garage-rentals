@@ -10,8 +10,8 @@
 <div class="container">
   <div class="grid-cards">
     <% @garages.each do |garage| %>
-        <div class="card-product">
-          <%= link_to garage do %>
+        <%= link_to garage do %>
+          <div class="card-product">
             <% if garage.photos.attached? %> 
               <%= cl_image_tag garage.photos.first.key %>
             <% end %>
@@ -27,8 +27,8 @@
               <p id="price">R$ <%= sprintf('%.2f', garage.price).gsub('.', ',') %>/day</p>
               </div>
             </div><!-- Fim do Card-Product-infos-->
-          <% end %>
-        </div><!-- Fim do Card-Product-->
+          </div><!-- Fim do Card-Product-->
+        <% end %>
     <% end %>
   </div><!-- Fim do grid de Cards-->
 </div>
