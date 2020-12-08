@@ -1,12 +1,14 @@
 .page-footer {
   display: flex;
   justify-content: space-around;
-  // background-color: lightgray;
   background-color: $special_orange;
   color: white;
+  margin-top: 20px;
   p {
     font-weight: bold;
-    align-items: left;
+  }
+  li {
+    font-weight: lighter;
   }
 }
 

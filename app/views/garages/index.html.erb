@@ -1,31 +1,26 @@
-<h1>CHOOSE THE PERFECT GARAGE FOR YOU</h1>
+<h2 id="index-title">CHOOSE THE PERFECT GARAGE FOR YOU</h2>
 
 <div class="d-flex">
 
 <%# box da esquerda - listagem das garagens %>
 <div class="container">
-  <div class="row">
-    <% @garages.each do |garage| %>
-      <div class="col-sm-12 col-md-6 col-lg-4 my-2">
-        <div class="card">
-          <div class="card-img">
-            <% if garage.photos.attached? %>
-              <%= cl_image_tag garage.photos.first.key, height: 300, width: 348, crop: :fill %>
-            <% else %>
-              <%= cl_image_tag '/assets/garage1', height: 300, width: 348, crop: :cover %>
-            <% end %>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title title"><%= link_to garage.title, garage %></h3>
-            <%# <p>R$ <%= garage.price %></p> 
-            <%# <p><%= garage.address %></p> 
-            <%# <p><%= garage.description %></p>
-            <%# <p><%= garage.user.name %></p> 
-          </div>
+  <div class="grid-cards">
+<% @garages.each do |garage| %>
+    <div class="card-product">
+      <% if garage.photos.attached? %> 
+        <%= cl_image_tag garage.photos.first.key %>
+      <% end %>
+      <div class="card-product-infos">
+        <h2><%= link_to garage.title, garage %></h2> 
+        <p><%= "#{garage.rating} stars" %></p>
+        <p><%= garage.address %></p>
+        <div>
+        <p id="price"><%= "R$ #{@garages.last.price}" %></p>
         </div>
-      </div>
-    <% end %>
-  </div>
+      </div><!-- Fim do Card-Product-infos-->
+    </div><!-- Fim do Card-Product-->
+<% end %>
+  </div><!-- Fim do grid de Cards-->
 </div>
 
 <%# box da direita - mapa %>
