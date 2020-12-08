@@ -1,3 +1,4 @@
+<div class="container">
 <%= link_to 'Rent out a garage', new_garage_path %>
 
 <h1>Your garages</h1>
@@ -5,21 +6,32 @@
 <% if @garages.empty? %>
   <h2>You have submitted no garages yet! =(</h2>
 <% else %>
-  <% @garages.each do |garage| %>
-    <% if garage.photos.attached? %>
-      <%= cl_image_tag garage.photos.first.key, height: 300, width: 400, crop: :fill %>
-    <% end %>
-    <h3><%= link_to garage.title, garage %></h3>
-    <% if garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
-      <p>Available</p>
-    <% else %>
-      <% rental = garage.rentals.select { |rental| rental.end_date.nil? }.first %>
-      <p>Rented since <%= rental.start_date.strftime("%d/%m/%Y") %> by <%= rental.user.name %></p>
-    <% end %>
-    <p>R$ <%= sprintf('%.2f', garage.price).gsub('.', ',') %></p>
-    <p><%= garage.address %></p>
-    <p><%= garage.description %></p>
-    <p><%= garage.user.name %></p>
-    <br>
+  <div class="container">
+    <div class="grid-cards">
+      <% @garages.each do |garage| %>
+        <div class="card-product list-card">
+          <% if garage.photos.attached? %> 
+            <%= cl_image_tag garage.photos.first.key %>
+          <% end %>
+          <div class="card-product-infos">
+            <h2><%= link_to garage.title, garage %></h2>
+            <% if garage.rentals.select { |rental| rental.end_date.nil? }.empty? %>
+              <p class="garage-status available">Available</p>
+            <% else %>
+              <% rental = garage.rentals.select { |rental| rental.end_date.nil? }.first %>
+              <p class="garage-status unavailable">Rented since <%= rental.start_date.strftime("%d/%m/%Y") %> by <%= rental.user.name %></p>
+            <% end %>
+            <p><%= "#{garage.rating} stars" %></p>
+            <p><%= garage.address %></p>
+            <p><%= garage.description %></p>
+            <div>
+              <p id="price">R$ <%= sprintf('%.2f', garage.price).gsub('.', ',') %></p>
+            </div>
+          </div><!-- Fim do Card-Product-infos-->
+        </div><!-- Fim do Card-Product-->
+      <% end %>
+  </div><!-- Fim do grid de Cards-->
   <% end %>
-<% end %>
+</div>
+
+</div>

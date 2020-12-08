@@ -1,16 +1,18 @@
 .page-footer {
   display: flex;
   justify-content: space-around;
-  // background-color: lightgray;
   background-color: $special_orange;
   color: white;
+  margin-top: 20px;
   p {
     font-weight: bold;
-    align-items: left;
+  }
+  li {
+    font-weight: lighter;
   }
 }
 
-.social  a {
+.footer-links a {
   text-decoration: none;
   color: white;
   position: relative
@@ -18,6 +20,9 @@
   &:hover {
     // text-decoration: none;
   color: $special_black;
-
   }
+}
+
+.social {
+  font-size: 32px;
 }
