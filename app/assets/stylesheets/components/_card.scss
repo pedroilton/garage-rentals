@@ -74,10 +74,10 @@
 
 .garage-status {
   font-weight: bold;
-  .available {
-    font-color: $blue;
-  }
-  .unavailable {
-    font-color: $gray;
-  }
+}
+.available {
+  color: $blue;
+}
+.unavailable {
+  color: $red;
 }
