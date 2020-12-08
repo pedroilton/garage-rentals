@@ -1,5 +1,5 @@
 import mapboxgl from 'mapbox-gl';
-// import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'; -> insere pesquisa no mapa
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 const initMapbox = () => {
   const mapElement = document.getElementById('map');
@@ -41,6 +41,8 @@ const initMapbox = () => {
             .setPopup(popup)
             .addTo(map);
         });
+        map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl }));
       });
     }
     else {
@@ -69,6 +71,8 @@ const initMapbox = () => {
           .setPopup(popup)
           .addTo(map);
       });
+      map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl }));
       // Chama o fitMapToMarkers:
       fitMapToMarkers(map, markers);
     }
